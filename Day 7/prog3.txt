@@ -1,0 +1,8 @@
+echo "Enter the string"
+read s
+len=${#s}
+echo "Output"
+for ((i=0;i<=len;i++))
+do
+    echo "${s:0:i}"
+done

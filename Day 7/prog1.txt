@@ -1,0 +1,5 @@
+echo "Enter the string"
+read s
+ls=$(echo "$s" | awk '{print tolower($0)}')
+vc=$(echo "$ls" | grep -o '[aeiou]' | wc -l)
+echo "Vowel count: $vc"

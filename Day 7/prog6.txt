@@ -1,0 +1,12 @@
+echo "Enter a string:"
+read s
+len=${#s}
+if [ $((len%2)) -eq 0 ]
+then
+    fi=${s:0:1}
+    la=${s:len-1:1}
+   echo "First character: $fi"
+   echo "Last character: $la"
+else
+    echo "All characters except first and last: ${s:1:len-2}"
+    fi

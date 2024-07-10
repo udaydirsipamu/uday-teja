@@ -1,0 +1,144 @@
+SQL> create table Book
+  2  (
+  3  bno int primary key,
+  4  bname varchar(20) not null,
+  5  author varchar(20) not null,
+  6  price int,
+  7  year_published int);
+
+Table created.
+
+SQL> create table Customer
+  2  (
+  3  cno int primary key,
+  4  cname varchar(20) not null,
+  5  city varchar(20) not null);
+
+Table created.
+
+SQL> create table BookCust
+  2  (
+  3  bno int,
+  4  cno int,
+  5  qty int,
+  6  foreign key(bno) references Book(bno),
+  7  foreign key(cno) references Customer(cno));
+
+Table created.
+SQL> insert all
+  2  into Book values(101,'C Prog','Yashwant',500,2005)
+  3  into Book values(102,'SQL','Eshan',150,2013)
+  4  into Book values(103,'Java','Cleta',500,2013)
+  5  into Book values(104,'Unix','Krishna',1000,2022)
+  6  into Customer values(201,'Shilpi','Mumbai')
+  7  into Customer values(202,'Apurva','Pune')
+  8  into Customer values(203,'Sowmya','Mumbai')
+  9  into BookCust values(102,203,10)
+ 10  into BookCust values(104,201,5)
+ 11  into BookCust values(102,202,2)
+ 12  into BookCust values(103,201,4)
+ 13  into BookCust values(101,203,4)
+ 14  into BookCust values(104,203,2)
+ 15  select * from dual;
+
+13 rows created.
+
+SQL> select * from Book;
+
+       BNO BNAME                AUTHOR                    PRICE YEAR_PUBLISHED
+---------- -------------------- -------------------- ---------- --------------
+       101 C Prog               Yashwant                    500           2005
+       102 SQL                  Eshan                       150           2013
+       103 Java                 Cleta                       500           2013
+       104 Unix                 Krishna                    1000           2022
+
+SQL> select * from Customer;
+
+       CNO CNAME                CITY
+---------- -------------------- --------------------
+       201 Shilpi               Mumbai
+       202 Apurva               Pune
+       203 Sowmya               Mumbai
+
+SQL> select * from BookCust;
+
+       BNO        CNO        QTY
+---------- ---------- ----------
+       102        203         10
+       104        201          5
+       102        202          2
+       103        201          4
+       101        203          4
+       104        203          2
+
+6 rows selected.
+
+a.)
+SQL> select * from Customer where city='Mumbai';
+
+       CNO CNAME                CITY
+---------- -------------------- --------------------
+       201 Shilpi               Mumbai
+       203 Sowmya               Mumbai
+
+b.)
+
+SQL> update Book set price=price+(price*0.1)
+  2  where year_published=2013
+  3  ;
+
+2 rows updated.
+
+SQL> select * from Book;
+
+       BNO BNAME                AUTHOR                    PRICE YEAR_PUBLISHED
+---------- -------------------- -------------------- ---------- --------------
+       101 C Prog               Yashwant                    500           2005
+       102 SQL                  Eshan                       165           2013
+       103 Java                 Cleta                       550           2013
+       104 Unix                 Krishna                    1000           2022
+
+c.)
+SQL> select cname,city from Customer inner join BookCust on Customer.cno=BookCust.cno inner join Book on Book.bno=BookCust.bno where year_published=2013;
+
+CNAME                CITY
+-------------------- --------------------
+Sowmya               Mumbai
+Apurva               Pune
+Shilpi               Mumbai
+
+d.)
+SQL> select Customer.cname from Customer join BookCust on Customer.cno=BookCust.cno
+  2  group by Customer.cname
+  3  having sum(BookCust.qty)>3;
+
+CNAME
+--------------------
+Sowmya
+Shilpi
+
+e.)
+SQL> select bname from Book
+  2  where price between 100 and 200 and year_published=2013;
+
+BNAME
+--------------------
+SQL
+
+f.)
+SQL> select cname,sum(qty) from Customer c join BookCust bc on c.cno=bc.cno
+  2  group by cname;
+
+CNAME                  SUM(QTY)
+-------------------- ----------
+Sowmya                       16
+Shilpi                        9
+Apurva                        2
+
+g.)
+
+SQL> select bname from Book where price=(select min(price) from (select distinct price from Book order by price desc) where rownum<=3);
+
+BNAME
+--------------------
+C Prog

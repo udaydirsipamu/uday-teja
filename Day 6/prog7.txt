@@ -1,0 +1,14 @@
+echo 'Enter a directory name'
+read dn
+if [ -d $dn ]
+then
+echo "Directory name exists"
+else
+     mkdir $dn
+     cd $dn
+     for i in {1..10}
+     do
+          fn="File$i.txt"
+          echo "$fn" > $fn
+     done
+fi

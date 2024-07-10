@@ -1,0 +1,8 @@
+countwords()
+{
+echo "Filename is $1"
+wc $1|awk '{print $1}'
+}
+echo "Enter file name"
+read fn
+countwords $fn

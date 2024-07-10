@@ -1,0 +1,152 @@
+SQL> create table Supplier
+  2  (
+  3  sid int primary key,
+  4  sname varchar(20) not null,
+  5  city varchar(20) not null);
+
+Table created.
+
+SQL> create table Parts
+  2  (
+  3  pid int primary key,
+  4  pname varchar(20) not null,
+  5  pdesc varchar(20) not null);
+
+Table created.
+
+SQL> create table SupplierParts
+  2  (
+  3  sid int,
+  4  pid int,
+  5  cost int check(cost>0),
+  6  foreign key(sid) references Supplier(sid),
+  7  foreign key(pid) references Parts(pid));
+
+Table created.
+
+SQL> insert all
+  2  into Supplier values(1,'Supplier A','Mumbai')
+  3  into Supplier values(2,'Supplier B','Bangalore')
+  4  into Supplier values(3,'Pawar','Mumbai')
+  5  into Supplier values(4,'Uday','AP')
+  6  into Parts values(101,'keyboard','keyboard for Comp')
+  7  into Parts values(102,'Monitor','monitor for display')
+  8  into Parts values(103,'Mouse','Wireless mouse')
+  9  into SupplierParts values(1,101,250)
+ 10  into SupplierParts values(1,102,35000)
+ 11  into SupplierParts values(1,103,150)
+ 12  into SupplierParts values(2,101,450)
+ 13  into SupplierParts values(2,102,45000)
+ 14  into SupplierParts values(3,102,65000)
+ 15  into SupplierParts values(4,103,200)
+ 16  into SupplierParts values(4,101,650)
+ 17  select * from dual;
+
+15 rows created.
+
+
+SQL> select * from Supplier;
+
+       SID SNAME                CITY
+---------- -------------------- --------------------
+         1 Supplier A           Mumbai
+         2 Supplier B           Bangalore
+         3 Pawar                Mumbai
+         4 Uday                 AP
+
+SQL> select * from Parts;
+
+       PID PNAME                PDESC
+---------- -------------------- --------------------
+       101 keyboard             keyboard for Comp
+       102 Monitor              monitor for display
+       103 Mouse                Wireless mouse
+
+SQL> select * from SupplierParts;
+
+       SID        PID       COST
+---------- ---------- ----------
+         1        101        250
+         1        102      35000
+         1        103        150
+         2        101        450
+         2        102      45000
+         3        102      65000
+         4        103        200
+         4        101        650
+
+8 rows selected.
+
+1.)
+SQL> select * from Supplier where city='Mumbai';
+
+       SID SNAME                CITY
+---------- -------------------- --------------------
+         1 Supplier A           Mumbai
+         3 Pawar                Mumbai
+
+2.)
+SQL> update SupplierParts set cost=cost+(cost*0.25) where sid=(select sid from Supplier where sname='Pawar');
+
+1 row updated.
+
+3.)
+SQL> select Supplier.sname,Parts.pname from Supplier join SupplierParts on Supplier.sid=SupplierParts.sid join Parts on SupplierParts.pid=Parts.pid;
+
+SNAME                PNAME
+-------------------- --------------------
+Supplier A           keyboard
+Supplier A           Monitor
+Supplier A           Mouse
+Supplier B           keyboard
+Supplier B           Monitor
+Pawar                Monitor
+Uday                 Mouse
+Uday                 keyboard
+
+8 rows selected.
+
+4.)
+
+SQL> select Supplier.sname,SupplierParts.cost from Supplier join SupplierParts on Supplier.sid=SupplierParts.sid join Parts on SupplierParts.pid=Parts.pid
+  2  where Parts.pname='keyboard';
+
+SNAME                      COST
+-------------------- ----------
+Supplier A                  250
+Supplier B                  450
+Uday                        650
+
+5.)
+SQL> select min(cost) from SupplierParts where pid=(select pid from Parts where pname='Mouse');
+
+ MIN(COST)
+----------
+       150
+
+6.)
+SQL> select Supplier.sname,Parts.Pname,SupplierParts.cost from Supplier join SupplierParts on Supplier.sid=SupplierParts.sid join Parts on SupplierParts.pid=Parts.pid
+  2  where SupplierParts.cost>100;
+
+SNAME                PNAME                      COST
+-------------------- -------------------- ----------
+Supplier A           keyboard                    250
+Supplier A           Monitor                   35000
+Supplier A           Mouse                       150
+Supplier B           keyboard                    450
+Supplier B           Monitor                   45000
+Pawar                Monitor                   81250
+Uday                 Mouse                       200
+Uday                 keyboard                    650
+
+8 rows selected.
+
+7.)
+ select Parts.* from Supplier inner join SupplierParts on Supplier.sid=SupplierParts.sid inner join Parts on SupplierParts.pid=Parts.pid
+  2  where Supplier.sname='Pawar'
+  3  order by SupplierParts.cost desc;
+
+       PID PNAME                PDESC
+---------- -------------------- --------------------
+       102 Monitor              monitor for display
+

@@ -1,0 +1,9 @@
+echo "Enter the file name:"
+read fn
+if [ -f "$fn" ]
+then
+    word_c=$(wc -w < "$fn")
+    echo "Number of words in $fn: $word_c"
+else
+    echo "File not found"
+    fi

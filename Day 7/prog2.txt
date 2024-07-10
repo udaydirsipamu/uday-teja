@@ -1,0 +1,12 @@
+echo "Enter the array elements"
+read -a arr
+read -A freq
+for i in "${arr[@]}"
+do
+   ((freq[i]++))
+done
+echo "Frequency of each element"
+for i in "${!freq[@]}"
+do
+echo "$i : ${freq[$i]}"
+done

@@ -1,0 +1,17 @@
+echo "Enter the array"
+read -a arr
+hi=${arr[0]}
+lo=${arr[0]}
+for i in "${arr[@]}"
+do
+   if(($i > $hi))
+   then
+   hi=$i
+   fi
+   if(($i < $lo))
+   then
+   lo=$i
+   fi
+done
+echo "Highest element: $hi"
+echo "Lowest element: $lo"

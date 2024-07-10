@@ -1,0 +1,9 @@
+echo "Enter file name"
+read filename
+echo "Enter old text"
+read old_text
+echo "Enter new text"
+read new_text
+echo "Enter new file name"
+read fn
+sed "s/$old_text/$new_text/g" "$filename" > "$fn"

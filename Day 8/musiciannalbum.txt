@@ -1,0 +1,109 @@
+SQL> create table musician
+  2  (
+  3  mno int primary key,
+  4  name varchar(20),
+  5  city varchar(20),
+  6  mob int);
+
+Table created.
+
+SQL> create table album
+  2  (
+  3  title varchar(20) primary key,
+  4  copy_right_date date,
+  5  format varchar(20),
+  6  mno int,
+  7  foreign key(mno) references musician(mno));
+
+Table created.
+
+SQL> insert all
+  2  into musician values(101,'A R Rehman','Chennai',9876543210)
+  3  into musician values(102,'Hans Zimmer','Los Angeles',1234567890)
+  4  into musician values(103,'John Williams','Los Angeles',9876567890)
+  5  into album values('Album1',date '23-01-01','Audio',103)
+  6  into album values('Album2',date '23-02-01','Video',102)
+  7  into album values('Album3',date '23-03-01','Audio',101)
+  8  into album values('Album4',date '23-04-01','Video',101)
+  9  into album values('Album5',date '23-05-01','Audio',102)
+ 10  into album values('Album6',date '23-06-01','Video',103)
+ 11  select * from dual;
+
+9 rows created.
+
+
+SQL> select * from album;
+
+TITLE                COPY_RIGH FORMAT                      MNO
+-------------------- --------- -------------------- ----------
+Album1               01-JAN-23 Audio                       103
+Album2               01-FEB-23 Video                       102
+Album3               01-MAR-23 Audio                       101
+Album4               01-APR-23 Video                       101
+Album5               01-MAY-23 Audio                       102
+Album6               01-JUN-23 Video                       103
+
+6 rows selected.
+
+SQL> select * from musician;
+
+       MNO NAME                 CITY                        MOB
+---------- -------------------- -------------------- ----------
+       101 A R Rehman           Chennai              9876543210
+       102 Hans Zimmer          Los Angeles          1234567890
+       103 John Williams        Los Angeles          9876567890
+
+1.)
+
+SQL> select * from album join musician on album.mno=musician.mno
+  2  where musician.name='A R Rehman';
+
+TITLE                COPY_RIGH FORMAT                      MNO        MNO NAME                 CITY                        MOB
+-------------------- --------- -------------------- ---------- ---------- -------------------- -------------------- ----------
+Album3               01-MAR-23 Audio                       101        101 A R Rehman           Chennai              9876543210
+Album4               01-APR-23 Video                       101        101 A R Rehman           Chennai              9876543210
+
+
+2.)
+SQL> select * from musician join album on musician.mno=album.mno
+  2  where album.format='Audio';
+
+       MNO NAME                 CITY                        MOB TITLE                COPY_RIGH FORMAT                      MNO
+---------- -------------------- -------------------- ---------- -------------------- --------- -------------------- ----------
+       103 John Williams        Los Angeles          9876567890 Album1               01-JAN-23 Audio                       103
+       101 A R Rehman           Chennai              9876543210 Album3               01-MAR-23 Audio                       101
+       102 Hans Zimmer          Los Angeles          1234567890 Album5               01-MAY-23 Audio                       102
+
+3.)
+SQL> select * from musician where city='Los Angeles';
+
+       MNO NAME                 CITY                        MOB
+---------- -------------------- -------------------- ----------
+       102 Hans Zimmer          Los Angeles          1234567890
+       103 John Williams        Los Angeles          9876567890
+
+4.)SQL> select * from musician where name like '%e_';
+
+       MNO NAME                 CITY                        MOB
+---------- -------------------- -------------------- ----------
+       102 Hans Zimmer          Los Angeles          1234567890
+
+5.)SQL> update musician set city='Bangalore' where city='Chennai';
+
+1 row updated.
+
+6.)SQL> select musician.name,count(album.title) from musician left join album on musician.mno=album.mno
+  2  group by musician.name;
+
+NAME                 COUNT(ALBUM.TITLE)
+-------------------- ------------------
+John Williams                         2
+Hans Zimmer                           2
+A R Rehman                            2
+
+7.)
+SQL> select musician.name from musician left join album on musician.mno=album.mno
+  2  group by musician.name
+  3  having count(album.title)>2;
+
+no rows selected

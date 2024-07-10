@@ -1,0 +1,98 @@
+SQL> create table Donor
+  2  (
+  3  dno int primary key,
+  4  dname varchar(20) not null,
+  5  city varchar(20) not null);
+
+Table created.
+
+SQL> create table Blood_Donation
+  2  (
+  3  bid int primary key,
+  4  bgroup varchar(10) not null,
+  5  qty int,
+  6  date_coll date,
+  7  dno int,
+  8  foreign key(dno) references Donor(dno));
+
+Table created.
+
+
+SQL> insert all
+  2  into Donor values(1,'Uday','Andhra Pradesh')
+  3  into Donor values(2,'Teja','Hyd')
+  4  into Donor values(3,'Vishnu','Bangalore')
+  5  into Blood_Donation values(101,'A+ve',200,date '2013-12-25',1)
+  6  into Blood_Donation values(102,'B-ve',150,date '2013-12-26',2)
+  7  into Blood_Donation values(103,'O+ve',180,date '2013-12-27',3)
+  8  into Blood_Donation values(104,'A+ve',220,date '2013-12-28',1)
+  9  into Blood_Donation values(105,'A+ve',190,date '2013-12-29',1)
+ 10  into Blood_Donation values(106,'B+ve',210,date '2013-12-30',2)
+ 11  into Blood_Donation values(107,'O-ve',230,date '2013-12-31',3)
+ 12  select * from dual;
+
+10 rows created.
+
+SQL> select * from Donor;
+
+       DNO DNAME                CITY
+---------- -------------------- --------------------
+         1 Uday                 Andhra Pradesh
+         2 Teja                 Hyd
+         3 Vishnu               Bangalore
+
+SQL> select * from Blood_Donation;
+
+       BID BGROUP            QTY DATE_COLL        DNO
+---------- ---------- ---------- --------- ----------
+       101 A+ve              200 25-DEC-13          1
+       102 B-ve              150 26-DEC-13          2
+       103 O+ve              180 27-DEC-13          3
+       104 A+ve             220 28-DEC-13          1
+       105 A+ve             190 29-DEC-13          1
+       106 B+ve              210 30-DEC-13          2
+       107 O-ve              230 31-DEC-13          3
+
+7 rows selected.
+
+1.)
+SQL> select sum(qty) from Blood_Donation where date_coll=date '2013-12-25';
+
+  SUM(QTY)
+----------
+       200
+
+2.)
+SQL> select Donor.dno,Donor.dname,sum(qty) from Donor join Blood_Donation on Donor.dno=Blood_Donation.dno
+  2  group by Donor.dno,Donor.dname;
+
+       DNO DNAME                  SUM(QTY)
+---------- -------------------- ----------
+         1 Uday                        610
+         2 Teja                        360
+         3 Vishnu                      410
+
+3.)
+SQL> select * from Donor where dno=(select dno from Blood_Donation where bgroup='A+ve');
+
+       DNO DNAME                CITY
+---------- -------------------- --------------------
+         1 Uday                 Andhra Pradesh
+         1 Uday                 Andhra Pradesh       
+         1 Uday                 Andhra Pradesh       
+
+4.)
+SQL> select dno,dname from Donor where dno=(select dno from Blood_Donation group by dno having count(*)>2);
+
+       DNO DNAME
+---------- --------------------
+         1 Uday
+
+5.)
+SQL> select Donor.*,Blood_donation.bgroup from Donor join Blood_Donation on Donor.dno=Blood_Donation.dno  where city like '%sh%';
+
+       DNO DNAME                CITY                 BGROUP
+---------- -------------------- -------------------- ----------
+         1 Uday                 Andhra Pradesh       A+ve
+         1 Uday                 Andhra Pradesh       A+ve
+         1 Uday                 Andhra Pradesh       A+ve

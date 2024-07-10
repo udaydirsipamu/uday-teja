@@ -1,0 +1,75 @@
+
+SQL> create table Employee
+  2  (
+  3  eid int primary key,
+  4  name varchar(20) not null,
+  5  sal int check(sal>0),
+  6  age int check(age>0),
+  7  city varchar(20) default 'Mumbai',
+  8  desg varchar(20));
+
+Table created.
+
+SQL> insert all
+  2  into Employee values(101,'Uday',50000,24,'Andhra','Manager')
+  3  into Employee values(102,'Teja',60000,25,'Hyd','Sr exec')
+  4  into Employee values(103,'Bob',45000,23,'Mumbai','exec')
+  5  into Employee values(104,'Ali',70000,30,'Pune','Sr exec')
+  6  into Employee values(105,'Alice',40000,23,'Mumbai','exec')
+  7  select * from dual;
+
+5 rows created.
+
+SQL> select  * from Employee;
+
+       EID NAME                        SAL        AGE CITY                 DESG
+---------- -------------------- ---------- ---------- -------------------- --------------------
+       101 Uday                      50000         24 Andhra               Manager
+       102 Teja                      60000         25 Hyd                  Sr exec
+       103 Bob                       45000         23 Mumbai               exec
+       104 Ali                       70000         30 Pune                 Sr exec
+       105 Alice                     40000         23 Mumbai               exec
+
+1.)
+SQL> select name from Employee
+  2  where sal=(select max(sal) from Employee);
+
+NAME
+--------------------
+Ali
+
+2.)
+SQL> select * from Employee
+  2  where city='Mumbai' order by sal desc;
+
+       EID NAME                        SAL        AGE CITY                 DESG
+---------- -------------------- ---------- ---------- -------------------- --------------------
+       103 Bob                       45000         23 Mumbai               exec
+       105 Alice                     40000         23 Mumbai               exec
+
+3.)
+SQL> select desg,count(desg) from Employee
+  2  group by desg;
+
+DESG                 COUNT(DESG)
+-------------------- -----------
+Manager                        1
+Sr exec                        2
+exec                           2
+
+4.)
+SQL> update Employee set sal=sal+(sal*0.1)
+  2  where desg='Sr exec';
+
+2 rows updated.
+
+5.)
+SQL> select * from Employee e join Employee a on e.desg=a.desg
+  2  where a.name='Ali';
+
+       EID NAME                        SAL        AGE CITY                 DESG                        EID NAME                        SAL        AGE CITY
+           DESG
+---------- -------------------- ---------- ---------- -------------------- -------------------- ---------- -------------------- ---------- ---------- -------------------- --------------------
+       102 Teja                       66000        25 Hyd                  Sr exec                     104 Ali                        77000        30 Pune
+           Sr exec
+       104 Ali                        77000         30 Pune                 Sr exec                     104 Ali                        77000         30 Pune

@@ -1,0 +1,16 @@
+echo "Enter a number"
+read n
+sum=0
+temp=$n
+while [ $n -gt 0 ]
+do
+   dig=$((n%10))
+   sum=$((sum+dig))
+   n=$((n/10))
+done
+if [ $((temp%sum)) -eq 0 ]
+then
+echo "$temp is a Niven numbers"
+else
+echo "$temp is not a Niven number"
+fi

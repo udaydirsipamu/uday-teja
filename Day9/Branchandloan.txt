@@ -1,0 +1,117 @@
+SQL> create table Branch
+  2  (
+  3  bname varchar(20) primary key,
+  4  bcity varchar(20) not null,
+  5  assets int check(assets>0));
+
+Table created.
+
+SQL> create table Loan
+  2  (
+  3  lno int primary key,
+  4  amount int check(amount>0),
+  5  bname varchar(20),
+  6  foreign key(bname) references Branch(bname));
+
+Table created.
+
+SQL> insert all
+  2  into Branch values('DYP','Mumbai',1000000)
+  3  into Branch values('Sahyadri','Pune',4000000)
+  4  into Branch values('Deccan','Mumbai',3000000)
+  5  into Branch values('Pimpri','Bangalore',100000)
+  6  into Loan values(101,50000,'DYP')
+  7  into Loan values(102,150000,'Deccan')
+  8  into Loan values(103,75000,'DYP')
+  9  into Loan values(104,80000,'Pimpri')
+ 10  into Loan values(105,85000,'DYP')
+ 11  into Loan values(106,450000,'Deccan')
+ 12  into Loan values(107,500000,'Sahyadri')
+ 13  select * from dual;
+
+11 rows created.
+
+SQL> select * from Branch;
+
+BNAME                BCITY                    ASSETS
+-------------------- -------------------- ----------
+DYP                  Mumbai                  1000000
+Sahyadri             Pune                    4000000
+Deccan               Mumbai                  3000000
+Pimpri               Bangalore                100000
+
+SQL> select * from Loan;
+
+       LNO     AMOUNT BNAME
+---------- ---------- --------------------
+       101      50000 DYP
+       102     150000 Deccan
+       103      75000 DYP
+       104      80000 Pimpri
+       105      85000 DYP
+       106     450000 Deccan
+       107     500000 Sahyadri
+
+7 rows selected.
+
+1.)
+
+SQL> select  sum(amount) from Loan where bname='DYP';
+
+SUM(AMOUNT)
+-----------
+     210000
+2.)
+SQL> select Branch.bname,count(*) from Loan join Branch  on Loan.bname=Branch.bname
+  2  group by Branch.bname;
+
+BNAME                  COUNT(*)
+-------------------- ----------
+DYP                           3
+Deccan                        2
+Pimpri                        1
+Sahyadri                      1
+
+3.)
+
+SQL> select bname from Branch where assets=(select max(assets) from Branch where bcity='Mumbai');
+
+BNAME
+--------------------
+Deccan
+
+
+4.)
+SQL> select * from Loan order by amount desc;
+
+       LNO     AMOUNT BNAME
+---------- ---------- --------------------
+       107     500000 Sahyadri
+       106     450000 Deccan
+       102     150000 Deccan
+       105      85000 DYP
+       104      80000 Pimpri
+       103      75000 DYP
+       101      50000 DYP
+
+7 rows selected.
+
+5.)
+SQL> select bname from Branch where bcity in ('Mumbai','Pune');
+
+BNAME
+--------------------
+DYP
+Sahyadri
+Deccan
+
+6.)
+SQL> select Branch.bname from branch join Loan on Branch.bname=Loan.bname
+  2  group by Branch.bname
+  3  having count(Loan.lno)<3;
+
+BNAME
+--------------------
+Deccan
+Pimpri
+Sahyadri
