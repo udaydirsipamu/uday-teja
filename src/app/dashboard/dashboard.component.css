@@ -1,0 +1,36 @@
+h3{
+    text-align: center;
+}
+.para1{
+    text-align: center;
+}
+.buttons{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2opx;
+    background-color: blanchedalmond;
+}
+.table th{
+    background-color: blueviolet;
+}
+.table td{
+    background-color:rgb(28, 204, 58);
+}
+.table tbody tr:nth-child(even){
+    background-color: aquamarine;
+}
+
+.center-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+.p1,.p2,.p3,.p4.p5{
+    background-color: aquamarine;
+}
+
+.container form-group{
+    background-color:blanchedalmond;
+}

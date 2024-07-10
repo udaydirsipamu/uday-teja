@@ -1,0 +1,133 @@
+<div class="buttons">
+    <button class="btn btn-info fs-5 m-3" (click)="home()">HOME</button>
+    <button class="btn btn-info fs-5 m-3" (click)="services()">Services</button>
+    <button class="btn btn-info fs-5 m-3" (click)="getAppData()">My Appointments</button>
+    <button class="btn btn-info fs-5 m-3" (click)="bookAppointment()">Book an Appointment</button>
+    <button class="btn btn-info fs-5 m-3" (click)="login()">Logout</button>
+</div>
+     <div *ngIf="bDisplayHome" class="home-container">
+     <h3>Welcome to Wellness center</h3>
+     <p class="para1">Explore our services and book your appointments today!</p><br/><br/>
+     <!--<img [src]= "imgSrc1" height="300px"width="=300px"/>-->
+     <div class="center-image">
+     <img src="/images/img8.jpeg">
+    </div>
+    </div>
+<div *ngIf="bDisplayServices" class="service-container">
+    <h3><b>Our Services</b></h3><br/><br/>
+    <h3>Yoga Classes</h3>
+    <p class="p1">Yoga is an ancient art that connects the mind and body.
+        It is an exercise that we perform by balancing the elements of our bodies.
+        In addition, it helps us meditate and relax.
+        Moreover, yoga helps us keep control of our bodies as well as mind.
+        Yoga is not just about bending or twisting the body and holding the breath.
+        It is a technique to bring you into a state where you see and experience reality simply the way it is.
+        If you enable your energies to become exuberant and ecstatic, your sensory body expands.
+        This enables you to experience the whole universe as a part of yourself, making everything one, 
+        this is the union that yoga creates.
+    </p>
+    <div class="center-image">
+        <img src="/images/yoga1.jpeg">
+       </div>
+    <br/><br/>
+    <h3>Nutritional Counselling</h3>
+    <p class="p2">Nutrition counseling is an integral part of a comprehensive wellness plan at Evia Medical Center. 
+        It's important to know that nutrition is different than “dieting.
+        ” Nutrition counseling is a therapeutic approach to help clients live an overall healthier lifestyle. 
+        People of all ages can benefit from nutrition counseling.
+        Various conditions can benefit from nutrition counseling, 
+        including Type 2 diabetes, high cholesterol, and insulin resistance. 
+        The foods you eat have an impact on your wellness, 
+        so learning how to choose nourishing foods can help you gain better control, 
+        and in some cases, can reverse these conditions completely.</p>
+        <div class="center-image">
+            <img src="/images/nutrition.jpeg">
+           </div><br/><br/>
+    <h3>Fitness</h3>
+    <p class="p3">Fitness is very important for good health. 
+        Besides feeling better mentally, exercising can help protect you from heart disease, stroke, obesity, diabetes,
+         and high blood pressure; and it can make you look younger,
+         increase and maintain bone density, improve the quality of your life,
+          and may keep you from getting sick.
+          Keep your body moving: Avoid sitting in one place for a long, especially if you have a desk job. 
+          Take regular breaks every 30-45 minutes to move and stretch your body.</p>
+          <div class="center-image">
+            <img src="/images/fitness.jpeg">
+           </div><br/><br/>
+    <h3>Mental health Counselling</h3>
+    <p class="p4">The concept of mental wellness does not imply just being free of depression, anxiety, 
+        or other mental illness. Rather, it refers to a state of overall well-being. 
+        It's about being able to manage well in the good as well as in the bad times.
+         Life throws us into different situations every day.
+         establish goals and develop approaches to address emotional issues, 
+         shore up skills in coping and communication, 
+         improve self-esteem, promote changes in behavior and strive for improved mental well-being.</p>
+         <div class="center-image">
+            <img src="/images/mentalhealth.jpeg">
+           </div><br/><br/>
+
+    <h3>Massage Therapy</h3>
+    <p class="p5">Massage boosts blood flow. Through it, 
+        toxins are expelled from the body while helping nutrients enter cells. 
+        Body massage can bring health benefits and help the body in many ways. 
+        It can relax muscle tissues, manage pain, prevent injuries,
+         and create a better sense of well-being.The focus is on you as a whole, rather than solving any specific 
+         areas of pain or dysfunction. The focus is to balance the whole body, 
+         calm the nervous system and increase circulation. 
+         There are many benefits to wellness massage</p>
+         <div class="center-image">
+            <img src="/images/massagetherapy.jpeg">
+           </div><br/><br/>
+</div>
+
+    <div *ngIf="bDisplayAppData==true" class="container text-center">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <th>Appointment ID</th>
+            <th>Name</th>
+            <th>Service</th>
+            <th>Appointment Date</th>
+            <th>Time Slot</th>
+            <th rowspan="2">Modifications</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let app of appList">
+                <td>{{app.id}}</td>
+                <td>{{app.name}}</td>
+                <td>{{app.service}}</td>
+                <td>{{app.date}}</td>
+                <td>{{app.time}}</td>
+                <td>
+                    <button class="btn btn-warning  m-2" (click)="updateAppointment(app)">Update</button>
+                    <button class="btn btn-info fs-5 m-3" (click)="deleteAppointment(app.id)">Cancel</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div *ngIf="bDisplayAddData==true || bDisplayUpdateData==true">
+        <div class="form">
+            <h2 class="text-center text-dark">{{addOrUpdateDisplay}}</h2>
+            <div class="container form-group">
+                <label for="id">Appointment Id:</label>
+                <input type="number" id="id" class="form-control" readonly [(ngModel)]="appointment.id"><br><br>
+                <label for="name">Enter your Name*</label>
+                <input type="text" id="name" class="form-control" required [(ngModel)]="appointment.name"><br><br>
+                <label for="service">Opt for Service*</label>
+                <select name="Choose Service:" id="service" class="form-control" required [(ngModel)]="appointment.service">
+                    <option value="Yoga Classes">Yoga Classes</option>
+                    <option value="Nutritional Counselling">Nutritional Counselling</option>
+                    <option value="Fitness">Fitness</option>
+                    <option value="Mental Health Counselling">Mental Health Counselling</option>
+                    <option value="Massage Therapy">Massage Therapy</option>
+                </select><br><br>
+                <label for="date">Choose AppointmentDate*</label>
+                <input type="date" id="date" class="form-control" required [(ngModel)]="appointment.date"><br><br>
+                <label for="time">Choose TimeSlot*</label>
+                <input type="time" id="time" class="form-control" required [(ngModel)]="appointment.time"><br><br>
+                <div class="text-center">
+                    <button class="btn btn-primary mt-2" (click)="createOrUpdateData()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
