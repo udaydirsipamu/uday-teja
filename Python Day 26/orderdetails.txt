@@ -1,0 +1,158 @@
+SQL> create table customers
+  2  (
+  3  cid int primary key,
+  4  cname varchar(20) not null);
+
+Table created.
+
+SQL> create table orders
+  2  (
+  3  oid int primary key,
+  4  odate date,
+  5  cid int,
+  6  foreign key(cid) references customers(cid));
+
+Table created.
+
+SQL> create table product
+  2  (
+  3  pid int primary key,
+  4  pname varchar(20) not null,
+  5  price int);
+
+Table created.
+
+SQL> create table orderdetails
+  2  (
+  3  oid int,
+  4  pid int,
+  5  qty int,
+  6  foreign key(oid) references orders(oid),
+  7  foreign key(pid) references product(pid));
+
+Table created.
+
+
+SQL> insert all
+  2  into customers values(101,'Ali')
+  3  into customers values(102,'Hussain')
+  4  into orders values(201,date '24-10-01',102)
+  5  into orders values(202,date '24-05-12',102)
+  6  into orders values(203,date '21-10-10',101)
+  7  into orders values(204,date '23-11-12',101)
+  8  into product values(301,'Laptop',1200)
+  9  into product values(302,'Keyboard',300)
+ 10  into product values(303,'Mouse',100)
+ 11  into orderdetails values(201,301,10)
+ 12  into orderdetails values(201,302,5)
+ 13  into orderdetails values(202,303,5)
+ 14  into orderdetails values(203,302,3)
+ 15  into orderdetails values(203,303,5)
+ 16  into orderdetails values(204,302,3)
+ 17  into orderdetails values(204,303,2)
+ 18  select * from dual;
+
+16 rows created.
+
+SQL> select * from customers;
+
+       CID CNAME
+---------- --------------------
+       101 Ali
+       102 Hussain
+
+SQL> select * from orders;
+
+       OID ODATE            CID
+---------- --------- ----------
+       201 01-OCT-24        102
+       202 12-MAY-24        102
+       203 10-OCT-21        101
+       204 12-NOV-23        101
+
+SQL> select * from product;
+
+       PID PNAME                     PRICE
+---------- -------------------- ----------
+       301 Laptop                     1200
+       302 Keyboard                    300
+       303 Mouse                       100
+
+SQL> select * from orderdetails;
+
+       OID        PID        QTY
+---------- ---------- ----------
+       201        301         10
+       201        302          5
+       202        303          5
+       203        302          3
+       203        303          5
+       204        302          3
+       204        303          2
+
+7 rows selected.
+
+
+1.)
+SQL> select c.cname,p.pname,od.qty from customers c join orders o on c.cid=o.cid
+  2  join orderdetails od on o.oid=od.oid
+  3  join product p on od.pid=p.pid;
+
+CNAME                PNAME                       QTY
+-------------------- -------------------- ----------
+Hussain              Laptop                       10
+Hussain              Keyboard                      5
+Hussain              Mouse                         5
+Ali                  Keyboard                      3
+Ali                  Mouse                         5
+Ali                  Keyboard                      3
+Ali                  Mouse                         2
+
+7 rows selected.
+
+2.)
+SQL> select c.cname,p.pname,sum(od.qty) from customers c join orders o on c.cid=o.cid
+  2  join orderdetails od on o.oid=od.oid
+  3  join product p on od.pid=p.pid
+  4  group by c.cname,p.pname;
+
+CNAME                PNAME                SUM(OD.QTY)
+-------------------- -------------------- -----------
+Hussain              Laptop                        10
+Hussain              Keyboard                       5
+Hussain              Mouse                          5
+Ali                  Keyboard                       6
+Ali                  Mouse                          7
+
+3.)
+SQL> select c.cname from customers c join orders o on c.cid=o.cid
+  2  join orderdetails od on o.oid=od.oid
+  3  group by c.cname
+  4  having count(distinct od.pid)>2;
+
+CNAME
+--------------------
+Hussain
+
+4.)
+SQL> select c.cname,o.oid,sum(p.price * od.qty) from customers c join orders o on c.cid=o.cid
+  2  join orderdetails od on o.oid=od.oid
+  3  join product p on od.pid=p.pid
+  4  group by c.cname,o.oid;
+
+CNAME                       OID SUM(P.PRICE*OD.QTY)
+-------------------- ---------- -------------------
+Hussain                     201               13500
+Hussain                     202                 500
+Ali                         203                1400
+Ali                         204                1100
+
+5.)SQL> select c.cname,sum(p.price * od.qty) from customers c join orders o on c.cid=o.cid
+  2  join orderdetails od on o.oid=od.oid
+  3  join product p on od.pid=p.pid
+  4  group by c.cname;
+
+CNAME                SUM(P.PRICE*OD.QTY)
+-------------------- -------------------
+Hussain                            14000
+Ali                                 2500

@@ -1,0 +1,22 @@
+<Html>
+    <Head>
+        <title>Simple pyscript program</title>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css"/>
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    </Head>
+    <Body>
+        <h1>Pyscript program to  print Dudeney number</h1>
+        <py-script>
+                def dudeney_num(n):
+                    s=0
+                    temp=n
+                    while temp > 0:
+                        s+=temp % 10
+                        temp//=10
+                    cube=s**3
+                    return cube==n
+                n=int(input("Enter a number:"))
+                if dudeney_num(n):
+                    print("It is Dudeney number")
+                else:
+                    print("It is not a Dudeney number")

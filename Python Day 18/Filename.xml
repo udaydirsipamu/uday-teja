@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="5" time="0.159" timestamp="2024-06-03T12:06:09.045938" hostname="A-RK71TVHJV9G4J"><testcase classname="test_arithmetic" name="test_add" time="0.001" /><testcase classname="test_arithmetic" name="test_sub" time="0.002"><failure message="assert -1 == 1&#10; +  where -1 = sub(-2, -1)">def test_sub():
+&gt;       assert sub(-2,-1)==1
+E       assert -1 == 1
+E        +  where -1 = sub(-2, -1)
+
+test_arithmetic.py:8: AssertionError</failure></testcase><testcase classname="test_arithmetic" name="test_power" time="0.001" /><testcase classname="test_p1" name="test_f1" time="0.001"><failure message="AssertionError: Values are not equal&#10;assert 10 == 20">&gt;   ???
+E   AssertionError: Values are not equal
+E   assert 10 == 20
+
+C:\Users\Administrator\Desktop\Python development\Python Day 6\test_p1.py:6: AssertionError</failure></testcase><testcase classname="test_p1" name="test_f2" time="0.001" /></testsuite></testsuites>
