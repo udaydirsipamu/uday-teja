@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <style>
+        body{ background-image: url("js1.jpeg");
+            background-repeat:no-repeat ;
+            background-size: 100% 100%;}
+        button{ margin: 100px;}
+    </style>
+<body>
+    <button class="btn btn-secondary" onclick ="DestructuringDemo()">Destructuring</button>
+<script>
+        DestructuringDemo = () => {
+            empObj=[120,"Uday"]
+            const [empId,name]=empObj
+            alert("Given name is: "+name)
+        }
+</script>
+    </body>
+</html>

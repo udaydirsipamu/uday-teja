@@ -1,22 +1,250 @@
-<!--<div class="background-image">
-  <div class="body-container">-->
-  <h1>Wellness Center</h1><br/><br/>
-  <!--<div class="container">
-    <nav>
-      <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/login">Login</a><br/><br/>
+<!-- Day4 <h1>Hello,Welcome to Angular..</h1>
+
+<button class="btn btn-success">Bootstrap Button...</button>
+
+<h1>Hello,Two way data bindig</h1>
+
+Enter data here : <input type="text" [(ngModel)]="myName"/><br/><br/>
+
+<p>Given name is: {{myName}} </p>-->
+
+<!-- Day5 <h1>Property binding</h1>
+
+Enter Image Name : <input type="text" [(ngModel)]="imgSrc"/><br/><br/><br/>
+
+<img [src]="imgSrc" height="400px"width="400px"/>-->
+
+<!--<h1>Event Binding..</h1><br/><br/>
+
+<button class="btn btn-primary" (click)="buttonClicked()">Click</button> -->
+
+<!--<h1>Event Binding..</h1><br/><br/>
+
+Enter your ID : <input type="text" [(ngModel)]="userID"/> <br/><br/>
+
+<button class="btn btn-warning" (click)="verifyData()">Verify Name</button> -->
+
+<!--<h1> nglf Directive..</h1>
+
+<button class="btn btn-danger" (click)="enableFlag()">Login</button>
+
+<div *ngIf="bDisplayLoginForm == true">
+  <h2> Lgin form </h2>
+  User ID : <input type="text" [(ngModel)]="UID"/> <br/> <br/>
+  Password : <input type="text" /> <br/> <br/>
+  <button type="submit" (click)="validate()">Login</button>
+</div> -->
+
+<!-- <h1> ngFor Directive..</h1>
+
+<button class="btn btn-primary" (click)="enableProductDisplayFlag()">Login</button>
+
+<div *ngIf="bDisplayProductData == true">
+  <br/>
+  <table class="table table-hover table-bordered">
+    <thead>
+      <th>Product ID</th>
+      <th>Product Name</th>
+      <th>Description</th>
+      <th>Cost</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of ProductList">
+        <td>{{product.product_id}}</td>
+        <td>{{product.product_name}}</td>
+        <td>{{product.description}}</td>
+        <td>{{product.cost}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<!-- <h1>Pipes</h1>
+Enter text : <input type="text" [(ngModel)]="strText"/> <br/> <br/>
+<p> Given Text : {{strText}}</p>
+<p> Upper case : {{strText | uppercase }} </p>
+<p> Lower case : {{strText | lowercase }} </p> -->
+
+<!-- <h1> Currency Pipes</h1>
+Enter amount : <input type="number" [(ngModel)]="nCurrency"/> <br/> <br/>
+<p> Given amount : {{nCurrency}}</p>
+<p> Currency in USD : {{nCurrency | currency : 'USD' }} </p>
+<p> Currency in Rupees : {{nCurrency | currency : 'INR' }} </p>-->
+
+<!-- <h1> Date Pipe</h1>
+<p> Given date is : {{todaysDate}}</p>
+<p> Short date : {{todaysDate | date : 'short' }} </p>
+<p> Medium date : {{todaysDate | date : 'medium' }} </p>
+<p> Long date : {{todaysDate | date : 'long' }} </p> -->
+
+<!-- <h1>Assignment 2</h1>
+<p>Display 5 images</p><br/>
+<img [src]="imgSrc1" height="150px"width="150px"/>
+<img [src]="imgSrc2" height="150px"width="150px"/>
+<img [src]="imgSrc3" height="150px"width="150px"/>
+<img [src]="imgSrc4" height="150px"width="150px"/>
+<br/>
+<br/>
+<img [src]="imgSrc5" height="150px"width="150px"/> -->
+
+<!-- <h1>Sum of two numbers</h1>
+
+Enter num1: <input type="number" [(ngModel)]="num1"/><br/><br/>
+
+Enter num2: <input type="number" [(ngModel)]="num2"/><br/><br/>
+
+<button type="submit" (click)="SumData()">Add</button> -->
+
+<!--<h1>Login and register buttons</h1>
+
+<button class="btn btn-danger" (click)="enableFlag1()">Login</button>
+
+<div *ngIf="bDisplayLoginForm1 == true">
+  <h2> Login form </h2>
+  User ID : <input type="text" [(ngModel)]="UID1"/> <br/> <br/>
+  Password : <input type="text" [(ngModel)]="pwd"/> <br/> <br/>
+  <button type="submit" (click)="validate1()">Login</button>
+</div>
+<button class="btn btn-danger" (click)="enableFlagReg()">Register</button>
+<div *ngIf="bDisplayRegistrationForm == true">
+  <h2> Registration form </h2>
+  User ID : <input type="text" [(ngModel)]="UID2"/> <br/> <br/>
+  Password : <input type="text" [(ngModel)]="pwd1"/> <br/> <br/>
+  <button type="submit" (click)="validate2()">Register</button>
+</div>-->
+
+<!-- <h1> ngFor onEmployee Domain..</h1>
+
+<button class="btn btn-primary" (click)="enableEmployeeDisplayFlag()">Login</button>
+
+<div *ngIf="bDisplayEmployeeData == true">
+  <br/>
+  <table class="table table-hover table-bordered">
+    <thead>
+      <th>Employee_id</th>
+      <th>Employee_name</th>
+      <th>Department</th>
+      <th>desegnation</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of EmployeeList">
+        <td>{{employee.Employee_id}}</td>
+        <td>{{employee.Employee_name}}</td>
+        <td>{{employee.Department}}</td>
+        <td>{{employee.desegnation}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>-->
+
+<!-- Day 5 <h1> Angular services..</h1>
+
+<button class="btn btn-primary" (click)="enableEmployeeFlag()">Display Employee data</button>
+
+<div *ngIf="bDisplayEmpData == true">
+  <br/>
+  <table class="table table-hover table-bordered">
+    <thead>
+      <th>Employee_id</th>
+      <th>Employee_name</th>
+      <th>Department</th>
+      <th>designation</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of emplist">
+        <td>{{employee.Employee_id}}</td>
+        <td>{{employee.Employee_name}}</td>
+        <td>{{employee.Department}}</td>
+        <td>{{employee.designation}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+<!--<h1>Template driven Forms</h1>
+<div class="container login">
+  <h2>Login Form</h2>
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+  <div class="form-group">
+    <label for="username">User name : </label>
+    <input type="text" id="username" class="form-control" name="username" ngModel>
+</div>
+<div class="form-group">
+    <label for="password">Password : </label>
+    <input type="text" id="password" class="form-control" name="password" ngModel>
+</div>
+<br/>
+<button type="submit" class="btn btn-primary">Login</button> 
+<br/><br/>
+</form>
+</div> -->
+
+<!--<nav class="navbar navbar-dark bg-dark mb-5">
+  <div class="container">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/home">Home</a>
       </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/register">Register</a><br/><br/>
-        </li>
-      </ul>
-    </nav>
-  </div>-->
-  <!--<div>-->
-  <div>
-    <router-outlet></router-outlet>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/product">Product</a>
+      </li>
+    </ul>
   </div>
-  <!--</div>-->
-  <!--</div>
-  </div>-->
+</nav>-->
+
+<!-- Day 6 <h1>Template driven Forms..</h1>
+<div class="container login">
+  <h2>Login Form</h2>
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+  <div class="form-group">
+    <label for="username">User name : </label>
+    <input type="text" id="username" class="form-control" name="username" ngModel required #username="ngModel"><br/>
+    <div *ngIf="username.invalid && username.touched" class="alert alert-danger">
+</div>
+<div class="form-group">
+    <label for="password">Password : </label>
+    <input type="text" id="password" class="form-control" name="password" ngModel required #password="ngModel" minlength="6">
+</div>
+     <div *ngIf="password.invalid && password.touched" class="alert alert-danger">
+      <div *ngIf="password.errors?.['required']">Password cannot be empty..</div>
+     </div>
+     <div *ngIf="password.errors?.['minlength']">Password must have 6 characters</div>
+  </div>
+<br/>
+<button type="submit" class="btn btn-primary"[disabled]="loginForm.invalid">Login</button> 
+<br/><br/>
+</form>
+</div>-->
+
+<h1>Connecting with backend server..</h1><br/><br/>
+<button class="btn btn-warning" (click)="getBookData()">Display Book Data</button>
+<button class="btn btn-warning" (click)="addBookData()">Add Book</button><br/><br/>
+  <table class="table table-hover table-bordered">
+    <thead>
+      <th>Book ID</th>
+      <th>Book Name</th>
+      <th>Author</th>
+      <th>Cost</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of booklist">
+        <td>{{book.id}}</td>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.cost}}</td>
+        <td>
+          <button class="btn btn-link" (click)="updateBook(book)">Edit</button>
+          <button class="btn btn-link" (click)="deleteBook(book.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<div *ngIf="bDisplayAddData ==true || bDisplayUpdateData==true">
+  <h2>{{addOrUpdateDisplay}}</h2>
+  Book Id:<input type="number" [(ngModel)]="book.id"><br/><br/>
+  Title:<input type="text" [(ngModel)]="book.title"><br/><br/>
+  Author Id:<input type="text" [(ngModel)]="book.author"><br/><br/>
+  Cost:<input type="number" [(ngModel)]="book.cost"><br/><br/>
+  <button class="btn btn-primary" (click)="createOrUpdateData()">Submit</button>
+</div>

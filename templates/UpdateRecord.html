@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+      p, button, input{
+      font-size: 30px;
+      }
+      h1{ font-size: 50px; }
+    </style>
+</head>
+<body>
+<h1 align="center">Update Record</h1>
+<form style="=border: 2px solid black; padding:10px" action="" method="post">
+    <p>Employee id: <input type="integer" name="employee_id" value="{{employee.employee_id}}"/></p>
+    <p>Name: <input type="text" name="name" value="{{employee.name}}"/></p>
+    <p>Age: <input type="integer" name="age" value="{{employee.age}}"/></p>
+    <p>Position: <input type="text" name="position" value="{{employee.position}}"/></p>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

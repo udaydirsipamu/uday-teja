@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        th,td{
+        font-size: 30px;
+        background-color: orange;
+        }
+    </style>
+</head>
+<body>
+<h1> List of records.. </h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Position</th>
+    </tr>
+    {% for employee in employees %}
+    <tr>
+        <td>{{employee.employee_id}}</td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.age}}</td>
+        <td>{{employee.position}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
